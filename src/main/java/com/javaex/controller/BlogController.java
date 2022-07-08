@@ -20,7 +20,7 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 
-	// 블로그 메인화면!!
+	// 블로그 메인화면
 	@RequestMapping(value = "/{id}", method = { RequestMethod.GET, RequestMethod.POST })
 	public String main(@PathVariable("id") String id, Model model) {
 		System.out.println("blog controller");
@@ -32,7 +32,7 @@ public class BlogController {
 		return "/blog/blog-main";
 	}
 
-	// 내블로그 관리를 눌렀을때
+	// 블로그 관리
 	@RequestMapping(value = "/{id}/admin/basic", method = { RequestMethod.GET, RequestMethod.POST })
 	public String basicModify(@PathVariable("id") String id, Model model) {
 		System.out.println("blogbasic controller");

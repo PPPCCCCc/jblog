@@ -47,7 +47,7 @@ public class BlogService {
 
 		if (fileSize > 0) {
 
-			String saveDir = "C:\\javaStudy\\upload\\";
+			String saveDir = "C:\\javaStudy\\upload";
 
 			// 오리지널파일명
 			String orgName = file.getOriginalFilename();

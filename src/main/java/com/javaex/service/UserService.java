@@ -14,7 +14,7 @@ public class UserService {
 
 	// 회원가입
 	public int join(UserVo userVo) {
-		System.out.println("[UserService] : join()");
+		System.out.println("user join ser");
 
 		int count = userDao.insert(userVo);
 
@@ -25,7 +25,7 @@ public class UserService {
 
 	// 로그인하여 사용자 정보 가져오기
 	public UserVo getUser(UserVo userVo) {
-		System.out.println("UserService.getUser()");
+		System.out.println("user get ser");
 
 		UserVo authUser = userDao.selectUser(userVo);
 
