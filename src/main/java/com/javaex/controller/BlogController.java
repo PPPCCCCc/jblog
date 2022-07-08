@@ -24,14 +24,12 @@ public class BlogController {
 	@RequestMapping(value = "/{id}", method = { RequestMethod.GET, RequestMethod.POST })
 	public String main(@PathVariable("id") String id, Model model) {
 		System.out.println("blog controller");
-		System.out.println("블록컨트롤: " + id);
 
 		Map<String, Object> bMap = blogService.getBlogMain(id);
 
 		model.addAttribute("bMap", bMap);
 
 		return "/blog/blog-main";
-
 	}
 
 	// 내블로그 관리를 눌렀을때
