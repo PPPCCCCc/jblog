@@ -1,1 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+
+	<insert id="insertCategory"
+		parameterType="CategoryVo">
+		<![CDATA[
+			insert into category
+			values(seq_category_no.nextval,
+				   #{id}, 
+				   #{cateName}, 
+				   #{description}, 
+					sysdate
+					)
+		]]>
+	</insert>
+
+	<select id="cateSelect" parameterType="String"
+		resultType="CategoryVo">
+		<![CDATA[
+			 select  c.cateNo,
+              		 c.id,
+              		 c.cateName,
+            		 c.description,
+             		 c.regDate,
+              		 count(p.cateNo) as postCount
+     		 from category c, post p
+      		 where c.cateNo = p.cateNo(+)
+     		 and c.id = #{id}
+      		 group by c.cateNo, 
+               	 	  c.id,
+               		  c.cateName,
+               		  c.description,
+               		  c.regDate
+      		 order by c.cateNo desc
+		]]>
+	</select>
+
+	<insert id="writeCategory"
+		parameterType="CategoryVo">
+		<selectKey keyProperty="cateNo" resultType="int"
+			order="BEFORE">
+			<![CDATA[
+				select seq_category_no.nextval from dual
+			]]>
+		</selectKey>
+	
+		<![CDATA[
+			insert into category
+			values( #{cateNo},
+			        #{id},
+			        #{cateName},
+			        #{description},
+			        sysdate
+			        )		
+		]]>
+	</insert>
+
+	<select id="selectCategory" parameterType="int"
+		resultType="CategoryVo">
+		<![CDATA[
+			select c.catename,
+				   c.id,
+				   c.description,
+				   c.regDate,
+				   c.cateNo,
+				   nvl(b.count,0) as pCount
+			from category c left join (select cateno,
+                                  			  count(*) as count
+				          			   from post
+				          			   group by cateno) b
+									   on c.cateno = b.cateno
+									   where c.cateno = #{cateNo}
+		]]>
+	</select>
+
+	<select id="countSelect" parameterType="int"
+		resultType="CategoryVo">
+		<![CDATA[
+			select 
+			       (select count(p.cateno)
+        			from post
+        			) as pCount
+			from category c LEFT outer join post p
+			on p.cateno = c.cateno
+			where c.cateNo = #{cateNo}
+		]]>
+	</select>
+	
+	<delete id="removeCategory" parameterType="int">
+		<![CDATA[
+			delete from category
+			where cateNo = #{cateNo}
+		]]>	
+	</delete>
+
+</mapper>

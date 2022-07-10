@@ -13,7 +13,7 @@ public class BlogDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	// 회원정보 받아서 블로그에 뿌려주기
+	//회원정보
 	public void insertBlog(UserVo userVo) {
 
 		String id = userVo.getId();
@@ -22,10 +22,9 @@ public class BlogDao {
 		BlogVo blogVo = new BlogVo(id, blogTitle);
 
 		sqlSession.insert("blog.insertBlog", blogVo);
-
 	}
 
-	//id로 블로그 가져옴
+	//id로 블로그 
 	public BlogVo getBlog(String id) {
 
 		BlogVo blogVo = sqlSession.selectOne("blog.getBlog", id);
@@ -37,13 +36,11 @@ public class BlogDao {
 	public void upload(BlogVo blogVo) {
 
 		sqlSession.update("blog.basicUpload", blogVo);
-
 	}
 
 	// 타이틀 업로드
 	public void uploadTitle(BlogVo blogVo) {
 
 		sqlSession.update("blog.titleUpload", blogVo);
-
 	}
 }

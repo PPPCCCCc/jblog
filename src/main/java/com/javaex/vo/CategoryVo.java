@@ -12,6 +12,13 @@ public class CategoryVo {
 		super();
 	}
 
+	public CategoryVo(String id, String cateName, String description) {
+		super();
+		this.id = id;
+		this.cateName = cateName;
+		this.description = description;
+	}
+
 	public CategoryVo(int cateNo, String id, String cateName, String description, String regDate) {
 		super();
 		this.cateNo = cateNo;

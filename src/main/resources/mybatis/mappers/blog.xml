@@ -6,13 +6,12 @@
 	<!-- 블로그생성 -->
 	<insert id="insertBlog" parameterType="BlogVo">
 		<![CDATA[
-			INSERT INTO blog(id, blogTitle)
-			VALUES(#{id} ,
+			insert into blog(id, blogTitle)
+			values(#{id} ,
 				   #{blogTitle}
 				   )
 		]]>
 	</insert>
-
 
 	<!-- id로 블로그 선택 -->
 	<select id="getBlog" parameterType="String" resultType="BlogVo">
@@ -27,7 +26,6 @@
 		]]>
 	</select>
 
-
 	<!-- 업로드 -->
 	<update id="basicUpload" parameterType="BlogVo">
 		<![CDATA[
@@ -38,7 +36,6 @@
 		]]>
 	</update>
 
-
 	<!-- 업로드 -->
 	<update id="titleUpload" parameterType="BlogVo">
 		<![CDATA[
@@ -47,6 +44,5 @@
 			where id = #{id}
 		]]>
 	</update>
-
 
 </mapper>

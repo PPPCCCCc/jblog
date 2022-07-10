@@ -1,5 +1,6 @@
 package com.javaex.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
+import com.javaex.service.PostService;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.PostVo;
 
 @Controller
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
+	@Autowired
+	private PostService postService;
 
 	// 블로그 메인화면
 	@RequestMapping(value = "/{id}", method = { RequestMethod.GET, RequestMethod.POST })
@@ -53,14 +58,16 @@ public class BlogController {
 
 		return "redirect:/" + id + "/admin/basic";
 	}
-
-	// 관리에서 카테고리를 눌렀을때
-	@RequestMapping(value = "/{id}/admin/category", method = { RequestMethod.GET, RequestMethod.POST })
-	public String category(@PathVariable("id") String id, Model model) {
-		System.out.println("blogcategory controller");
+	@RequestMapping(value = "/{id}/admin/writeForm", method = { RequestMethod.GET, RequestMethod.POST })
+	public String post(@PathVariable("id") String id, Model model) {
 
 		Map<String, Object> bMap = blogService.getBlogMain(id);
 		model.addAttribute("bMap", bMap);
-		return "blog/admin/blog-admin-cate";
+
+		List<PostVo> postList = postService.getPost(id);
+		model.addAttribute("postList", postList);
+
+		return "/blog/admin/blog-admin-write";
 	}
+	
 }

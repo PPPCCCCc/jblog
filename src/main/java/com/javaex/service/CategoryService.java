@@ -10,14 +10,38 @@ import com.javaex.vo.CategoryVo;
 
 @Service
 public class CategoryService {
-	@Autowired CategoryDao categoryDao;
-	
-	public List<CategoryVo> getList(String id){
-		System.out.println("카테고리 리스트서비스");
-		
-		List<CategoryVo> cateList = categoryDao.getcateList(id);
-		System.out.println(cateList);
-		
+
+	@Autowired
+	private CategoryDao categoryDao;
+
+	public List<CategoryVo> getCate(String id) {
+
+		List<CategoryVo> cateList = categoryDao.getCate(id);
+
 		return cateList;
+	}
+
+	public CategoryVo writeCate(CategoryVo categoryVo) {
+
+		int count = categoryDao.writeCate(categoryVo);
+
+		int cateNo = categoryVo.getCateNo();
+
+		CategoryVo resultCateVo = categoryDao.selectCategory(cateNo);
+
+		return resultCateVo;
+	}
+
+	public boolean remove(int cateNo) {
+		boolean delete = false;
+		int count = categoryDao.removeCategory(cateNo);
+
+		if (count > 0) {
+			System.out.println("삭제완료");
+			delete = true;
+		} else
+			System.out.println("삭제실패");
+
+		return delete;
 	}
 }
